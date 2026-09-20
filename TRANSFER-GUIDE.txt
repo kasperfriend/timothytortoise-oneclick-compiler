@@ -1,0 +1,55 @@
+========================================================================
+ ACCOUNT/CHARACTER TRANSFER - PULL + APPLY GUIDE
+========================================================================
+
+Three scripts, put all of them in same folder as
+compile-tortoise.ps1 - they need the portable MariaDB client tools
+in .\database\mariadb\bin:
+
+  pull_old_native.ps1   - dumps from your earlier native build
+  transfer-apply.ps1   - loads whatever's in .\transfer-dumps into the new server
+
+------------------------------------------------------------------------
+ STEP 1 - pull_old_native.ps1 
+------------------------------------------------------------------------
+The old native build's portable MariaDB uses port 3307. Before running
+this script:
+  1. Stop the NEW server's database (close its console window, or run:
+     taskkill /IM mysqld.exe /F)
+  2. Start the OLD build's own database
+  3. Run pull-oldnative.bat
+  4. Once it finishes (writes oldnative_logon.sql / oldnative_char.sql),
+     you can stop the old database and start the new server's back up -
+     you're done needing the old build for the rest of this.
+
+------------------------------------------------------------------------
+ STEP 2 - transfer-apply.ps1 (once you have the dumps you want)
+------------------------------------------------------------------------
+Make sure the NEW server's database is running,
+then run transfer-apply.bat.
+
+The source is set up with different Offset values in the script
+(oldnative = 5000000, meaning "shift every ID up so it can't collide with what's already there"). This is
+fixed regardless of which pull script you ran first - no need to track
+which one was technically "first."
+
+------------------------------------------------------------------------
+ AFTER APPLYING
+------------------------------------------------------------------------
+Start the new server normally and check:
+  - Both sets of accounts can log in with their original passwords
+  - Characters from both sources appear at character select
+  - Log into one character from each source, check bags/bank/mail
+
+Guilds, arena teams, and petitions were NOT transferred - recreate those
+by hand (create the guild fresh, re-invite the members).
+
+------------------------------------------------------------------------
+ RE-RUNNING
+------------------------------------------------------------------------
+- Re-pulling a source just overwrites its two .sql files - fine to do
+  any time you want a fresher snapshot before applying.
+- Re-running transfer-apply.ps1 for the SAME source a second time will
+  hit "duplicate entry" on the primary-key inserts for anything already
+  merged (harmless - those rows are just skipped) as long as that
+  source's Offset didn't change between runs.
