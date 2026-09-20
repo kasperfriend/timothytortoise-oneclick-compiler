@@ -21,7 +21,7 @@ The repo does not include client data. You extract that data from your game clie
 ### 1. Get the repo files
 
 ```bash
-git clone [https://github.com/kasperfriend/tortoise-oneclick-compiler](https://github.com/kasperfriend/timothytortoise-oneclick-compiler)
+git clone https://github.com/kasperfriend/timothytortoise-oneclick-compiler
 cd timothytortoise-oneclick-compiler
 ```
 
