@@ -1,6 +1,6 @@
 # Tortoise WoW One-Click Compiler
 
-Run a private [Turtle WoW](https://turtle-wow.org/) server. This stack uses [T-imothy/tortoise-wow](https://github.com/T-imothy/tortoise-wow) with playerbots.
+Run a local [Turtle WoW](https://turtle-wow.org/) server. This stack uses [T-imothy/tortoise-wow](https://github.com/T-imothy/tortoise-wow) with playerbots.
 
 
 This repository includes a bundle of scripts used for compiling a working server and transferring your characters and data from my previous iterations(Native Windows server or Docker build)
@@ -30,7 +30,7 @@ cd timothytortoise-oneclick-compiler
 ```bash
 compile-tortoise.bat
 ```
-It will run database before compiling - that's fine, don't worry, it will compile the whole server next, don't close database until the server finishes building
+It will download everything it needs, compile the whole server and automatically close
 
 ### 3.1 (optional) Extract client data
 
@@ -42,7 +42,7 @@ Put the extracted folders(dbc, maps, vmaps and mmaps) directly into server folde
 
 ### 4. Edit configs(important)
 
-By default, configs will feature dev settings, which may cause lag and instability and may actually crash mangosd. I have included recommended conf files for both mangosd and aiplayerbot, you can compare them, tweak how you like it and replace default ones, but it's recommended to do before first launch!
+By default, configs will feature dev settings, which may cause lag and instability and may actually crash mangosd. I have included recommended conf files for mangosd and aiplayerbot and realmd, you can compare them, tweak how you like it and replace default ones, but it's recommended to do before first launch!
 
 You will need to manually create folders data, logs, honor and pdump or replace lines 12, 16, 20, 24 in mangosd.conf to be equal "." to avoid crashing mangosd
 
@@ -62,9 +62,9 @@ set realmlist 127.0.0.1
 
 ### 7. Start the server
 
-You can easily start the server with these steps: 1) Run start-database.bat in DB folder 2) Run realmd.exe in server folder 3) Run mangosd.exe in server folder
+You can easily start the server with these steps: 1) Run start-database.bat 2) Run realmd.exe in server folder 3) Run mangosd.exe in server folder
 
-It will apply a LONG list of SQL migrations on first launch, which may take around 20 minutes. After same SQL INSERT lines stop streaming and change into different fast moving commands - you may try to create account. Also you may hear a Windows beep sound when it's ready.
+It will apply a LONG list of SQL migrations on first launch, which may take around 20 minutes. After you hear a Windows beep sound it's ready to create account and enter the game.
 
 
 ## Troubleshooting
