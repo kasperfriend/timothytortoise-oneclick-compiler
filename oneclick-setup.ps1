@@ -594,7 +594,7 @@ if "%ERRORLEVEL%"=="0" (
     exit /b 1
 )
 echo Starting MariaDB on 127.0.0.1:%PORT% ...
-start "Turtle WoW - MariaDB (keep open)" /MIN "%BIN%\%DAEMON%" --defaults-file="%DB%\my.ini" --console
+start "TurtleWoW-MariaDB" /MIN "%BIN%\%DAEMON%" --defaults-file="%DB%\my.ini" --console
 :: Wait until it answers (max ~60 s)
 set /a tries=0
 :wait
