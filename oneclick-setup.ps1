@@ -544,8 +544,8 @@ set "DB=%ROOT%\database"
 set "BIN=%DB%\mariadb\bin"
 set "PORT=$DbPort"
 :: Fallbacks for different MariaDB zip layouts (mariadb.exe vs mysql.exe, mariadbd.exe vs mysqld.exe)
-if not exist "%BIN%\mariadbd.exe" if exist "%BIN%\mysqld.exe" set "DAEMON=mysqld.exe" else set "DAEMON=mariadbd.exe"
-if exist "%BIN%\mariadbd.exe" set "DAEMON=mariadbd.exe"
+set "DAEMON=mariadbd.exe"
+if not exist "%BIN%\mariadbd.exe" set "DAEMON=mysqld.exe"
 if not exist "%BIN%\%DAEMON%" (
     echo [ERROR] %BIN%\%DAEMON% not found. Run setup.bat first.
     timeout /t 5 >nul & exit /b 1
@@ -1062,7 +1062,11 @@ foreach ($old in @('start-realmd.bat','start-mangosd.bat','start-server.bat','fi
 # start-database.bat / stop-database.bat already generated above - keep them
 
 
+
+
 $stopAll = @"
+
+
 @echo off
 title Turtle WoW - Stop everything
 taskkill /IM mangosd.exe /T >nul 2>&1 && echo mangosd stopped (use 'server exit' in its console for a clean save next time).
